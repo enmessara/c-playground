@@ -101,19 +101,19 @@ int main(int argc, char *argv[]) {
     char timestamp[64] = "Unavailable";
     char val_buf[128];
 
-    /* Timestamp for execution report */
+    //Timestamp for execution report
     time_t now = time(NULL);
     struct tm *tm_info = localtime(&now);
     if (tm_info) {
         strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S %Z", tm_info);
     }
 
-    /* Header */
+    // Header
     print_divider('+', '=', '+');
     printf("| %-60s |\n", "SYSTEM INFORMATION COLLECTOR");
     print_divider('+', '=', '+');
 
-    /* 1. Host & Operating System Information */
+    // Host and OS information
     print_section("1. HOST & OPERATING SYSTEM");
 
     if (gethostname(hostname, sizeof(hostname)) == 0) {
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
         print_row("OS Kernel", uts.sysname);
         print_row("Kernel Release", uts.release);
 
-        /* 2. Processor Architecture */
+        //2. Process architecture
         print_section("2. PROCESSOR & ARCHITECTURE");
         print_row("Architecture", uts.machine);
     } else {
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
         print_row("Logical Cores", val_buf);
     }
 
-    /* 3. Memory Information */
+    //Memory Information
     print_section("3. MEMORY INFORMATION");
 
     if (sysinfo(&si) == 0) {
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
         print_row("Memory Status", strerror(errno));
     }
 
-    /* 4. Program Execution Information */
+    //Program execution information
     print_section("4. PROGRAM EXECUTION DETAILS");
 
     print_row("Executed At", timestamp);
